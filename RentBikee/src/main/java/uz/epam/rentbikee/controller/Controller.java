@@ -16,20 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "helloServlet", value = {"/controller","*.do"})
+@WebServlet(name = "helloServlet", value = "/controller")
 public class Controller extends HttpServlet {
 
-    static Logger logger = LogManager.getLogger();
 
-    public void init() {
-    ConnectionPool.getInstance();
-        logger.log(Level.INFO, "++++<<<<---------->  Servlet init: "+ this.getServletInfo());
-
-    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html");
         String  com = request.getParameter("command");
         Command command = CommandType.define(com);
         String page;
@@ -38,16 +31,11 @@ public class Controller extends HttpServlet {
              request.getRequestDispatcher(page).forward(request,response);
         // response.sendRedirect(request.getContextPath()+"/"+page);
         } catch (CommandException e) {
-        //  response.sendError(500);
-        //throw new ServletException(e);
-        request.setAttribute("error_msg",e.getCause());
-        request.getRequestDispatcher("page/error/error_500.jsp");
+          response.sendError(500);
+
 
         }
 
     }
 
-    public void destroy() {
-        ConnectionPool.getInstance().destroyPool();
-    }
 }

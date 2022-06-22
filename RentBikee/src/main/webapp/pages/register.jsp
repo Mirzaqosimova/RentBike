@@ -55,7 +55,7 @@
 </head>
 <body>
 
-<form action="controller">
+<form action="controller" method="post">
     <input type="hidden" name="command" value="registration">
     <div class="container">
         <center>  <h1> Student Registeration Form</h1> </center>
@@ -64,38 +64,16 @@
         <input type="text" name="fullname" placeholder= "Firstname" size="15" required />
         <label> Username: </label>
         <input type="text" name="username" placeholder="username" size="15" required />
-<%--        <div>--%>
-<%--            <label>--%>
-<%--                Course :--%>
-<%--            </label>--%>
+    </div>
+    <label> Phone :</label>
+    <input type="text" name="phoneNum" placeholder="Country Code"  value="+998" maxlength="13" minlength="13"/>
 
-<%--            <select>--%>
-<%--                <option value="Course">Course</option>--%>
-<%--                <option value="BCA">BCA</option>--%>
-<%--                <option value="BBA">BBA</option>--%>
-<%--                <option value="B.Tech">B.Tech</option>--%>
-<%--                <option value="MBA">MBA</option>--%>
-<%--                <option value="MCA">MCA</option>--%>
-<%--                <option value="M.Tech">M.Tech</option>--%>
-<%--            </select>--%>
-<%--        </div>--%>
-<%--        <div>--%>
-<%--            <label>--%>
-<%--                Gender :--%>
-<%--            </label><br>--%>
-<%--            <input type="radio" value="Male" name="gender" checked > Male--%>
-<%--            <input type="radio" value="Female" name="gender"> Female--%>
-<%--            <input type="radio" value="Other" name="gender"> Other--%>
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="pass" required>
 
-<%--        </div>--%>
-        <label>
-            Phone :
-        </label>
-        <input type="text" name="phoneNum" placeholder="Country Code"  value="+998" size="9"/>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="pass" required>
-
-         <button type="submit">Register</button></form>
+    <button type="submit">Register</button>
+</form>
+<hr>
+ <p> ${register_msg}</p>
 </body>
 </html>

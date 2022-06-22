@@ -65,18 +65,16 @@
 <form action="controller">
     <input type="hidden" name="command" value="login">
     <div class="container">
-        <label>Phone Number : </label>
-        <input type="text" placeholder="Enter Phone num" name="phoneNum" required>
+        <label for = "name">Phone Number : </label>
+        <input id = "name" type="text" placeholder="Enter userName" name="username" required>
         <label>Password : </label>
         <input type="password" placeholder="Enter Password" name="pass" required>
 
         <button type="submit">Login</button>
     </div>
 </form>
-<br/> 
-<form action="controller">
-    <input type="hidden" name="command" value="registration">
+<br/>
     <a href="pages/register.jsp"><button type="submit">REGISTRATION</button></a>
-</form>
+
 </body>
 </html>
