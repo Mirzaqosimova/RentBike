@@ -21,21 +21,34 @@ public class Controller extends HttpServlet {
 
 
 
+
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        service(request,response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      service(req,resp);
+    }
+
+    public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String  com = request.getParameter("command");
-        Command command = CommandType.define(com);
+        Command command = null;
+        try {
+            command = CommandType.define(com);
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
         String page;
         try {
             page = command.execute(request);
-             request.getRequestDispatcher(page).forward(request,response);
-        // response.sendRedirect(request.getContextPath()+"/"+page);
-        } catch (CommandException e) {
-          response.sendError(500);
+            request.getRequestDispatcher(page).forward(request,response);
+        } catch (CommandException | ServletException e) {
+            response.sendError(500);
 
 
         }
-
     }
-
 }

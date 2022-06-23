@@ -5,6 +5,7 @@ import uz.epam.rentbikee.dao.BaseDao;
 import uz.epam.rentbikee.dao.UserDao;
 import uz.epam.rentbikee.entity.User;
 import uz.epam.rentbikee.exception.DaoException;
+import uz.epam.rentbikee.mapper.MapperImpl;
 import uz.epam.rentbikee.pool.ConnectionPool;
 
 import java.sql.Connection;
@@ -12,25 +13,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
-   private static final String SELECT_NAME = "SELECT\n" +
-           " u.id,u.balance,u.fullname,\n" +
-           "       u.is_block, u.password,\n" +
-           "       u.phone_number\n" +
-           "     , u.username, r.role_name\n" +
-           "FROM users u\n" +
-           "join roles r on r.id = u.role_id\n" +
-           "where password = ? and phone_number = ?";
+   private static final String SELECT_NAME = "SELECT  u.id,u.balance,u.fullname,  u.is_block, u.password, u.phone_number, u.username, r.role_name FROM users u join roles r on r.id = u.role_id\n where password = ? and phone_number = ?";
+
+   private static final String SAVE_USER = " insert into users(balance, fullname, is_block, password, phone_number, username, role_id) VALUES(?1,?2,?3,?4,?5,?6,?7) ";
 
 
-   private static final String SAVE_USER = " insert into users(balance, fullname, is_block, password, phone_number, username, role_id)\n" +
-           " VALUES(?1,?2,?3,?4,?5,?6,?7) ";
-
-   private static final String GET_USER_ROLE_ID = "select id\n" +
-           "from roles\n" +
-           "where role_name = 'USER'";
+   private static final String CHECK_PHONENUMBER_ISVALID = "select (case  when ((select id from  users where phone_number = ?) is null) then false else true end)";
 
     private static UserDaoImpl instance = new UserDaoImpl();
 
@@ -41,58 +33,62 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         return instance;
     }
 
+
     @Override
-    public User insert(User user) {
+    public User insert(User user) throws DaoException {
+
         Connection connection = ConnectionPool.getInstance().getConnection();
+        Optional<User> user1 = Optional.empty();
+
         try {
-            PreparedStatement statement =  connection.prepareStatement(GET_USER_ROLE_ID);
+            PreparedStatement  statement =  connection.prepareStatement(SAVE_USER);
+            statement.setDouble(1,0);
+            statement.setString(2,user.getFullname());
+            statement.setBoolean(3,false);
+            statement.setString(4,user.getPassword());
+            statement.setString(5,user.getPhoneNumber());
+            statement.setString(6,user.getUsername());
+            statement.setLong(7,user.getRole().getId());
             ResultSet resultSet = statement.executeQuery();
-if(resultSet.next()){
-    Long id = resultSet.getLong(1);
-}
-             statement =  connection.prepareStatement(SAVE_USER);
-//            statement.setString(1,"0");
-//            statement.setString(2,phoneNumber);
+            MapperImpl mapper = new MapperImpl();
+            if(resultSet.next()){
+
+                user1 =  mapper.generateUserFromResultSet(resultSet);
+
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("User save error",e);
         }
 
-
-        return null;
+//TODO CHECK USER
+        return user1.get();
     }
 
-    @Override
-    public boolean delete(User user) {
-        return false;
-    }
+
 
     @Override
     public List<User> findAll() {
         return null;
     }
 
-    @Override
-    public User update(User user) {
-        return null;
-    }
+
 
     @Override
-    public User authenticate(String phoneNumber, String password) throws DaoException {
+    public Optional<User> authenticate(String phoneNumber, String password) throws DaoException {
 
-        User user = null;
+        Optional<User> user = Optional.empty();
 
         try {
             Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement =  connection.prepareStatement(SELECT_NAME);
-            //statement.setString(1,login);
              statement.setString(1,password);
              statement.setString(2,phoneNumber);
              ResultSet resultSet = statement.executeQuery();
-//MapperImpl mapper = new MapperImpl();
+   MapperImpl mapper = new MapperImpl();
 
             if(resultSet.next()){
 
-               // user =  mapper.generateUserFromResultSet(resultSet);
+                user =  mapper.generateUserFromResultSet(resultSet);
 
             }
         }
@@ -104,5 +100,10 @@ throw new DaoException("User authenticate error",e);
 
 
         return user;
+    }
+
+    @Override
+    public boolean excistByPhoneNumber(String phoneNumber) {
+        return false;
     }
 }

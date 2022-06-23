@@ -2,7 +2,7 @@ package uz.epam.rentbikee.command.impl;
 
 
 import uz.epam.rentbikee.command.Command;
-import uz.epam.rentbikee.command.Pages;
+import uz.epam.rentbikee.command.Page;
 import uz.epam.rentbikee.entity.User;
 import uz.epam.rentbikee.exception.CommandException;
 import uz.epam.rentbikee.exception.ServiceException;
@@ -25,7 +25,7 @@ public class LoginCommand implements Command {
         boolean passwordValid = validation.isPasswordValid(password);
         if(! passwordValid && phoneNumberValid){
             request.setAttribute("login_msg","incorrect Login or pass");
-return Pages.INDEX;
+return Page.INDEX;
         }
         UserService userService = UserServiceImpl.getInstance();
         String page;
@@ -36,10 +36,10 @@ return Pages.INDEX;
             if(user != null){
                 request.setAttribute("user",user.getUsername());
                 session.setAttribute("user_name", user.getUsername());
-             page = Pages.MAIN;
+             page = Page.MAIN;
             } else {
                 request.setAttribute("login_msg","incorrect Login or pass");
-            page =Pages.INDEX;
+            page = Page.INDEX;
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

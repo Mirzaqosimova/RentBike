@@ -8,7 +8,10 @@ import java.util.Optional;
 
 public interface UserDao {
 
-    User authenticate(String login, String password) throws DaoException;
+    Optional<User> authenticate(String login, String password) throws DaoException;
+
+    boolean excistByPhoneNumber(String phoneNumber);
+
 
 
 

@@ -55,8 +55,8 @@
 </head>
 <body>
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="registration">
+<form action="${pageContext.request.contextPath}/controller">
+    <input type="hidden" name="command" value="registration"/>
     <div class="container">
         <center>  <h1> Student Registeration Form</h1> </center>
         <hr>
@@ -64,7 +64,7 @@
         <input type="text" name="fullname" placeholder= "Firstname" size="15" required />
         <label> Username: </label>
         <input type="text" name="username" placeholder="username" size="15" required />
-    </div>
+
     <label> Phone :</label>
     <input type="text" name="phoneNum" placeholder="Country Code"  value="+998" maxlength="13" minlength="13"/>
 
@@ -72,6 +72,7 @@
     <input type="password" placeholder="Enter Password" name="pass" required>
 
     <button type="submit">Register</button>
+    </div>
 </form>
 <hr>
  <p> ${register_msg}</p>

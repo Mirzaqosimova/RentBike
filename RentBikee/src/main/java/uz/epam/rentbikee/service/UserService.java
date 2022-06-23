@@ -10,5 +10,6 @@ public interface UserService {
 
     User authenticate(String login, String password) throws ServiceException;
 
-    Optional<User> registration(User user);
+    Optional<User> registration(User user) throws ServiceException;
+
 }

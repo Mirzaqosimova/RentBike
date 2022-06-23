@@ -9,10 +9,9 @@ import java.util.regex.Pattern;
 public class ValidationImpl implements Validation {
 
     public static final String PHONENUMBER_REGEX = "\\+998[0-9]{9}";
-    public static final String FULLNAME_REGEX = "^[A-Za-z]{0,25}$";
+    public static final String FULLNAME_REGEX = "^[A-Za-z]{2,25}$";
     public static final String PASSWORD_REGAX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
-public static final String USERNAME_REGAX = "^(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
-
+    public static final String USERNAME_REGAX = "^([A-Za-z]).{2,20}$";
 
 
     @Override
@@ -48,10 +47,10 @@ public static final String USERNAME_REGAX = "^(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
     }
 
     @Override
-    public boolean validateCommand(String comm)  {
-        for (CommandType commandType: CommandType.values()
-             ) {
-            if(commandType.name().equals(comm)){
+    public boolean validateCommand(String comm) {
+        for (CommandType commandType : CommandType.values()
+        ) {
+            if (commandType.name().equalsIgnoreCase(comm)) {
                 return true;
             }
         }
