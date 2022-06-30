@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Price extends AbsEntity {
+public class Price extends AbstractEntity {
 
 
     private int minut;

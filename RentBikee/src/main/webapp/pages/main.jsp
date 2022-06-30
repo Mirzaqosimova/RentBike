@@ -11,9 +11,9 @@
     <title>Main</title>
 </head>
 <body>
-HELLO (forward)= ${user}
+HELLO (forward)= ${username}
 <h1>
-    HI (redirect/forward) = ${user_name}
+    HI (redirect/forward) = ${username}
 </h1>
 <br/>
 <form action="controller">

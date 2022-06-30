@@ -1,30 +1,26 @@
-package uz.epam.rentbikee.entity;
+package uz.epam.rentbikee.payload;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uz.epam.rentbikee.entity.Role;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class User extends AbstractEntity {
+@Data
+public class UserDto {
+    private Long id;
 
     private String username;
 
     private String fullname;
 
-    private String password;
-
     private String phoneNumber;
 
     private boolean isBlock;
 
-    private Role role;
+    private String roleName;
 
     private double balance;
-
-    private boolean isDelete;
 
 }

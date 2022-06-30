@@ -2,7 +2,7 @@ package uz.epam.rentbikee.command.impl;
 
 
 import uz.epam.rentbikee.command.Command;
-import uz.epam.rentbikee.command.Page;
+import uz.epam.rentbikee.util.Page;
 
 import javax.servlet.http.HttpServletRequest;
 

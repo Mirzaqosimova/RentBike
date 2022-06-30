@@ -4,27 +4,24 @@ import lombok.*;
 import uz.epam.rentbikee.entity.type.BikeStatus;
 
 
-
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bike extends AbsEntity{
+public class Bike extends AbstractEntity {
 
-      private String color;
+    private String color;
 
-   private  int  size;
+    private int size;
 
-   private int seatsNum;
+    private int seatsNum;
 
+    private BikeStatus bikeStatus;
 
-private BikeStatus bikeStatus;
+    private Price price;
 
-      private Price price;
-
-     private Address address;
-
+    private Address address;
 
 
 

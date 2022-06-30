@@ -8,73 +8,67 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body{
-            font-family: Calibri, Helvetica, sans-serif;
-            background-color: pink;
-        }
-        .container {
-            padding: 50px;
-            background-color: lightblue;
-        }
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        input[type=text], input[type=password], textarea {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            display: inline-block;
-            border: none;
-            background: #f1f1f1;
-        }
-        input[type=text]:focus, input[type=password]:focus {
-            background-color: orange;
-            outline: none;
-        }
-        div {
-            padding: 10px 0;
-        }
-        hr {
-            border: 1px solid #f1f1f1;
-            margin-bottom: 25px;
-        }
-        .registerbtn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 16px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            opacity: 0.9;
-        }
-        .registerbtn:hover {
-            opacity: 1;
-        }
-    </style>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/registc.css">
+<title>Title</title>
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/controller">
-    <input type="hidden" name="command" value="registration"/>
-    <div class="container">
-        <center>  <h1> Student Registeration Form</h1> </center>
-        <hr>
-        <label> Fullname </label>
-        <input type="text" name="fullname" placeholder= "Firstname" size="15" required />
-        <label> Username: </label>
-        <input type="text" name="username" placeholder="username" size="15" required />
+<section class="vh-100 bg-image"
+         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-    <label> Phone :</label>
-    <input type="text" name="phoneNum" placeholder="Country Code"  value="+998" maxlength="13" minlength="13"/>
+     <form action="${pageContext.request.contextPath}/controller" method="post">
+                               <div class="form-outline mb-4">
+                               <input type="hidden" name="command" value="registration">
+                               <label class="form-label" for="form3Example1cg" ><h5>Enter your full name</h5></label>
+                               <input type="text" id="form3Example1cg" name="fullname" class="form-control form-control-lg" />
+                               </div>
 
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pass" required>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example3cg"><h5>Enter your username</h5></label>
+                                    <input type="username" id="form3Example3cg" name="username" class="form-control form-control-lg" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="qwer"><h5>Enter your phone number</h5></label>
 
-    <button type="submit">Register</button>
+                                    <input type="phonenumber" id="qwer" name="phoneNumber" class="form-control form-control-lg" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example4cg"><h5>Enter your password</h5></label>
+                                    <input type="password" id="form3Example4cg" name="password" placeholder="Password must be at least 8 characters" class="form-control form-control-lg" />
+                                </div>
+
+
+
+
+
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                </div>
+
+                            </form>
+                            <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="login.jsp"
+                                                                                                    class="fw-bold text-body"><u>Login here</u></a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</form>
-<hr>
+</section>
  <p> ${register_msg}</p>
 </body>
 </html>

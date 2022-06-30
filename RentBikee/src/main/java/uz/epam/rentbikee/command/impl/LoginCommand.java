@@ -2,49 +2,46 @@ package uz.epam.rentbikee.command.impl;
 
 
 import uz.epam.rentbikee.command.Command;
-import uz.epam.rentbikee.command.Page;
+import uz.epam.rentbikee.entity.type.RoleName;
+import uz.epam.rentbikee.util.AttributeName;
+import uz.epam.rentbikee.util.Message;
+import uz.epam.rentbikee.util.Page;
 import uz.epam.rentbikee.entity.User;
 import uz.epam.rentbikee.exception.CommandException;
 import uz.epam.rentbikee.exception.ServiceException;
 import uz.epam.rentbikee.service.UserService;
 import uz.epam.rentbikee.service.impl.UserServiceImpl;
-import uz.epam.rentbikee.valid.ValidationImpl;
+import uz.epam.rentbikee.validator.validImpl.ValidationImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class LoginCommand implements Command {
 
+    private static final UserServiceImpl userService = UserServiceImpl.getInstance();
+
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("pass");
-        ValidationImpl validation = new ValidationImpl();
-        boolean phoneNumberValid = validation.isPhoneNumberValid(username);
-        boolean passwordValid = validation.isPasswordValid(password);
-        if(! passwordValid && phoneNumberValid){
-            request.setAttribute("login_msg","incorrect Login or pass");
-return Page.INDEX;
-        }
-        UserService userService = UserServiceImpl.getInstance();
         String page;
-        HttpSession session = request.getSession();
 
         try {
-            User user = userService.authenticate(username, password);
-            if(user != null){
-                request.setAttribute("user",user.getUsername());
-                session.setAttribute("user_name", user.getUsername());
-             page = Page.MAIN;
+            User user = userService.authenticate(request);
+            if (user != null) {
+                request.setAttribute(AttributeName.USER, user);
+                if (user.getRole().getRole().equals(RoleName.ADMIN)) {
+                    page = Page.ADMIN_PAGE;
+                } else {
+                    page = Page.ADMIN_PAGE;
+                }
             } else {
-                request.setAttribute("login_msg","incorrect Login or pass");
-            page = Page.INDEX;
+                request.setAttribute(AttributeName.LOGIN_MSG, Message.INCORRECT);
+                page = Page.LOGIN;
             }
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        session.setAttribute("current_page",page);
+
         return page;
     }
 }

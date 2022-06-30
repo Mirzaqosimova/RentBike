@@ -7,11 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.util.Optional;
 
-public interface Mapper {
+public interface Mapper<T> {
 
-   Optional<User> generateUserFromResultSet(ResultSet resultSet);
-
-   Role generateRoleFromResultSet(ResultSet resultSet);
-
-  Optional<User> generateUserFromRequest(HttpServletRequest request);
+   Optional<T> generateFromResultSet(ResultSet resultSet);
+   Optional<T> generateAndValidRequest(HttpServletRequest request);
 }

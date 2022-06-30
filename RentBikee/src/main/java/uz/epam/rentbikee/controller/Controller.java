@@ -7,7 +7,9 @@ import org.apache.logging.log4j.Logger;
 import uz.epam.rentbikee.command.Command;
 import uz.epam.rentbikee.command.CommandType;
 import uz.epam.rentbikee.exception.CommandException;
+import uz.epam.rentbikee.exception.ServiceException;
 import uz.epam.rentbikee.pool.ConnectionPool;
+import uz.epam.rentbikee.util.ParametrName;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,31 +22,23 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
 
 
-
-
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        service(request,response);
+        service(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      service(req,resp);
+        service(req, resp);
     }
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String  com = request.getParameter("command");
-        Command command = null;
-        try {
-            command = CommandType.define(com);
-        } catch (CommandException e) {
-            e.printStackTrace();
-        }
+        String com = request.getParameter(ParametrName.COMMAND);
         String page;
         try {
+            Command command = CommandType.define(com);
             page = command.execute(request);
-            request.getRequestDispatcher(page).forward(request,response);
+            request.getRequestDispatcher(page).forward(request, response);
         } catch (CommandException | ServletException e) {
             response.sendError(500);
 

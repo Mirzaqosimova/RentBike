@@ -3,10 +3,10 @@ package uz.epam.rentbikee.dao;
 
 import uz.epam.rentbikee.entity.Role;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface RoleDao{
 
-     Role findByRoleName(String name);
+     Optional<Role> findByRoleName(String name);
 
 }

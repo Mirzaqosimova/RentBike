@@ -62,19 +62,11 @@
 </head>
 <body>
 <center> <h1> Student Login Form </h1> </center>
-<form action="controller">
-    <input type="hidden" name="command" value="login">
-    <div class="container">
-        <label for = "name">Phone Number : </label>
-        <input id = "name" type="text" placeholder="Enter userName" name="username" required>
-        <label>Password : </label>
-        <input type="password" placeholder="Enter Password" name="pass" required>
 
-        <button type="submit">Login</button>
-    </div>
-</form>
 <br/>
     <a href="pages/register.jsp"><button type="submit">REGISTRATION</button></a>
+<br>
+    <a href="pages/login.jsp"><button type="submit">LOGIN</button></a>
 
 </body>
 </html>

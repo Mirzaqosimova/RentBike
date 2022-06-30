@@ -7,23 +7,19 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address  extends AbstractEntity {
+@Data
+public class Attachment extends AbstractEntity {
+
+    private String fileOriginalName;
+
+    private long size;
+
+    private String contentType;
+
+    private String name;
 
 
-    private double lant;
 
-
-    private double longt;
-
-
-private String description;
-
-private String city;
-
-     private String street;
-
-
-}
+  }

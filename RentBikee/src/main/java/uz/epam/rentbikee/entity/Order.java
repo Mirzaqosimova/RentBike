@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order  extends AbsEntity{
+public class Order  extends AbstractEntity {
 
 
 

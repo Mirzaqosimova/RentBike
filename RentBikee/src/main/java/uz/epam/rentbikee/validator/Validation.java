@@ -1,4 +1,4 @@
-package uz.epam.rentbikee.valid;
+package uz.epam.rentbikee.validator;
 
 public interface Validation {
 
@@ -10,5 +10,7 @@ public interface Validation {
 
     boolean isPasswordValid(String password);
 
-    boolean validateCommand(String comm);
+    boolean validateCommand(String command);
+
+    boolean validateId(String id);
 }
