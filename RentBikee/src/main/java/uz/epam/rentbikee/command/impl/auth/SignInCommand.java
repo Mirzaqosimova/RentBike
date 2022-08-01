@@ -1,4 +1,4 @@
-package uz.epam.rentbikee.command.impl;
+package uz.epam.rentbikee.command.impl.auth;
 
 
 import uz.epam.rentbikee.command.Command;
@@ -16,7 +16,7 @@ import uz.epam.rentbikee.validator.validImpl.ValidationImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LoginCommand implements Command {
+public class SignInCommand implements Command {
 
     private static final UserServiceImpl userService = UserServiceImpl.getInstance();
 

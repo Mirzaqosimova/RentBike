@@ -14,6 +14,9 @@ public abstract class BaseDao<T  extends AbstractEntity> {
 
     public abstract List<T> findAll() throws DaoException;
 
-    public abstract Optional<T> getById(Long id) throws DaoException;
+    public abstract Optional<T> findById(Long id) throws DaoException;
 
+    public abstract boolean update(T t) throws DaoException;
+
+    public abstract boolean deleteById(Long validId) throws DaoException;
 }

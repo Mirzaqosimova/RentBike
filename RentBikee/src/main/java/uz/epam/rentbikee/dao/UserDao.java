@@ -16,7 +16,7 @@ public interface UserDao {
 
     boolean updateUserActive(Long id, boolean isActive) throws DaoException;
 
-     boolean changePhoneNumberAndIsDeletetrue(Long id, String phoneNumber) throws DaoException;
+    boolean changePhoneNumberAndIsDeletetrue(Long id, String phoneNumber) throws DaoException;
 
 
 

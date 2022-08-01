@@ -84,7 +84,7 @@ public class RoleDaoImpl extends BaseDao<Role> implements RoleDao {
     }
 
     @Override
-    public Optional<Role> getById(Long id) {
+    public Optional<Role> findById(Long id) {
 
 
         Optional<Role> role = Optional.empty();
@@ -105,6 +105,16 @@ public class RoleDaoImpl extends BaseDao<Role> implements RoleDao {
         }
 
         return role;
+    }
+
+    @Override
+    public boolean update(Role role) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(Long validId) {
+        return false;
     }
 
 

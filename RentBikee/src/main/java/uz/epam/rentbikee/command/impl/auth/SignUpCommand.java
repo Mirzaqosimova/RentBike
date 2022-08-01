@@ -1,4 +1,4 @@
-package uz.epam.rentbikee.command.impl;
+package uz.epam.rentbikee.command.impl.auth;
 
 
 import uz.epam.rentbikee.command.Command;
@@ -15,7 +15,7 @@ import uz.epam.rentbikee.service.impl.UserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public class RegisterCommand implements Command {
+public class SignUpCommand implements Command {
 
     private static final UserService userService = UserServiceImpl.getInstance();
 

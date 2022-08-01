@@ -14,8 +14,6 @@ public class Price extends AbstractEntity {
 
     private int minut;
 
-
-
     private double price;
 
 

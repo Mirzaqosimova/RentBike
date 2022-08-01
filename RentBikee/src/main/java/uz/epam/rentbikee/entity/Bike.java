@@ -11,11 +11,11 @@ import uz.epam.rentbikee.entity.type.BikeStatus;
 @NoArgsConstructor
 public class Bike extends AbstractEntity {
 
-    private String color;
+    private String brandName;
+
+    private String description;
 
     private int size;
-
-    private int seatsNum;
 
     private BikeStatus bikeStatus;
 
@@ -23,6 +23,9 @@ public class Bike extends AbstractEntity {
 
     private Address address;
 
+    private boolean isDelete;
+
+    private String fileName;
 
 
 }

@@ -10,8 +10,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
-    private static ConnectionPool instance;
 
+    private static ConnectionPool instance;
     private static final AtomicBoolean isCreated = new AtomicBoolean(false);
     private static final Lock locker = new ReentrantLock();
     private static final String DATA_SOURCE_URL = "jdbc:postgresql://localhost:5432/Bike";
@@ -19,8 +19,8 @@ public class ConnectionPool {
     private static final String DATA_SOURCE_PASSWORD = "root123";
     private static final int POOL_SIZE = 8;
 
-    private BlockingQueue<Connection> free = new LinkedBlockingQueue<>(POOL_SIZE);
-    private BlockingQueue<Connection> used = new LinkedBlockingQueue<>(POOL_SIZE);
+    private final BlockingQueue<Connection> free = new LinkedBlockingQueue<>(POOL_SIZE);
+    private final BlockingQueue<Connection> used = new LinkedBlockingQueue<>(POOL_SIZE);
 
     static {
         try {
@@ -32,9 +32,9 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         for (int i = 0; i < POOL_SIZE; i++) {
-            Connection connection;
+            ProxyConnection connection;
             try {
-                connection = DriverManager.getConnection(DATA_SOURCE_URL, DATA_SOURCE_USERNAME, DATA_SOURCE_PASSWORD);
+                connection = new ProxyConnection(DriverManager.getConnection(DATA_SOURCE_URL, DATA_SOURCE_USERNAME, DATA_SOURCE_PASSWORD));
                 free.add(connection);
             } catch (SQLException e) {
                 //TODO log
@@ -59,9 +59,9 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() {
-        Connection connection = null;
+        ProxyConnection connection = null;
         try {
-            connection = free.take();
+            connection = (ProxyConnection) free.take();
             used.put(connection);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,6 +71,7 @@ public class ConnectionPool {
 
     public void releaseConnection(Connection connection) {
         try {
+
             used.remove(connection);
             free.put(connection);
         } catch (InterruptedException e) {
@@ -82,7 +83,7 @@ public class ConnectionPool {
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
                 free.take().close();
-            } catch (SQLException | InterruptedException e) {
+            } catch (InterruptedException | SQLException e) {
                 e.printStackTrace();
 
             }

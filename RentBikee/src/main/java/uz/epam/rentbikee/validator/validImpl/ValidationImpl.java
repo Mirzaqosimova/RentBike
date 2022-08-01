@@ -67,6 +67,7 @@ public class ValidationImpl implements Validation {
     }
 
 
+
     public boolean isUserFieldsValid(String phoneNumber, String name, String userName, String password) {
         return isPasswordValid(password) && isUserNameValid(userName)
                 && isNameValid(name) && isPhoneNumberValid(phoneNumber);

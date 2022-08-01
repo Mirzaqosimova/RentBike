@@ -7,19 +7,19 @@ import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
 
-    private Connection connection;
+    private final Connection connection;
 
       ProxyConnection(Connection connection){
         this.connection = connection;
     }
 
-void reallyClose(){
+       void reallyClose(){
           try {
               connection.close();
           }catch (SQLException e){
               e.printStackTrace();
           }
-}
+       }
 
 
     @Override

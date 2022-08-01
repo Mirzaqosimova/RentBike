@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 @FunctionalInterface
 public interface Command {
 
-String execute(HttpServletRequest request) throws CommandException;
+  String execute(HttpServletRequest request) throws CommandException;
 
 }

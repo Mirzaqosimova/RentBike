@@ -35,7 +35,7 @@
 
                                 <form action="${pageContext.request.contextPath}/controller">
                                     <p>Please login to your account</p>
-                                    <input type="hidden" name="command" value="login">
+                                    <input type="hidden" name="command" value="SIGN_IN">
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form2Example11"><h5>Username</h5></label>
                                         <input type="username" id="form2Example11" name="username" class="form-control"

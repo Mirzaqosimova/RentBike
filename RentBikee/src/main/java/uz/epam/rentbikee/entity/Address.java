@@ -10,20 +10,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address  extends AbstractEntity {
-
+public class Address extends AbstractEntity {
 
     private double lant;
 
-
     private double longt;
 
+    private String description;
 
-private String description;
+    private String city;
 
-private String city;
-
-     private String street;
+    private String street;
 
 
 }

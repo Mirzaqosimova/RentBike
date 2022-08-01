@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User authenticate(HttpServletRequest request) throws ServiceException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = request.getParameter(ParametrName.USERNAME);
+        String password = request.getParameter(ParametrName.PASSWORD);
         ValidationImpl validation = new ValidationImpl();
         boolean phoneNumberValid = validation.isUserNameValid(username);
         boolean passwordValid = validation.isPasswordValid(password);
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
         try {
             List<User> userList = userDao.findAll();
             userDtoList = userList.stream()
-                    .filter(user -> !user.isDelete() || user.getRole().getRole().equals(RoleName.USER))
+                    .filter(user -> !user.isDelete() && user.getRole().getRole().equals(RoleName.USER))
                     .map(mapper::generateUserDtofromUser)
                     .collect(Collectors.toList());
             return userDtoList;
@@ -122,12 +122,12 @@ public class UserServiceImpl implements UserService {
         Long id = validAndCastUserId(request);
         if( id == null){
            request.setAttribute(AttributeName.ERROR, Message.SOMETHING_WENT_WRONG);
-           return false;
+           return true;
        }
 
         boolean result = false;
         try {
-            Optional<User> byId = userDao.getById(id);
+            Optional<User> byId = userDao.findById(id);
             if (byId.isPresent()) {
                 if (byId.get().isBlock()) {
                     result = userDao.updateUserActive(id, false);
@@ -151,10 +151,10 @@ public class UserServiceImpl implements UserService {
         }
         boolean result = false;
         try {
-            Optional<User> byId = userDao.getById(id);
+            Optional<User> byId = userDao.findById(id);
             if (byId.isPresent()) {
                 String number = byId.get().getPhoneNumber() + "&"+ generateRandomNumbers();
-              result =   userDao.changePhoneNumberAndIsDeletetrue(id,number);
+              result = userDao.changePhoneNumberAndIsDeletetrue(id,number);
             }
 
         } catch (DaoException e) {
@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
         String parameter = request.getParameter(ParametrName.USER_ID);
         ValidationImpl validation = new ValidationImpl();
         boolean validateId = validation.validateId(parameter);
-        if (validateId) {
+        if (!validateId) {
             return null;
         }
         return Long.valueOf(parameter);

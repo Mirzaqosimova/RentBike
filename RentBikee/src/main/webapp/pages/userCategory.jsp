@@ -15,15 +15,18 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="<c:url value='/pages/css/userlistcs.css' />"/>
 
-    <link rel="stylesheet" type="text/css" href="css/userlistcs.css">
     <title>Title</title>
 </head>
 <body>
 
 <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
-    Editable table
-</h3>
+    Edit users
+</h3> <a href="pages/adminPage.jsp">
+    <button id="bttn" type="button">
+        Back</button>
+</a><br>
 <div class="card-body">
     <div id="table" class="table-editable">
 
@@ -40,46 +43,44 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${requestScope.all_user}" var="user" >
+            <c:forEach items="${requestScope.all_user}" var="user">
                 <tr>
                     <td>${user.username}</td>
                     <td>${user.fullname}</td>
                     <td>${user.phoneNumber}</td>
                     <td>${user.balance}</td>
                     <c:if test="${user.block == true}">
-                        <td>block</td>
+                        <td>DEACTIVE</td>
                     </c:if>
                     <c:if test="${user.block == false}">
-                        <td>active</td>
+                        <td>ACTIVE</td>
                     </c:if>
 
                     <td>
                         <div class="container">
-                            <c:if test="${user.block == true}">
-                                <form action="">
-                                    <input type="hidden" name="command" value="activOrDeactive">
-                                    <button type="submit" name="command" value="vl" class="btn" >ACTIVE</button>
-                                </form>
-                            </c:if>
-                            <c:if test="${user.block == false}">
-                                <form action="">
-                                    <input type="hidden" name="command" value="activOrDeactive">
-                                    <button type="submit" name="command" value="vl" class="btn" >deactive</button>
-                                </form>
-                            </c:if>
-                            <form action="">
-                                <input type="hidden" name="command" value="delete">
-                                <button type="submit" class="btn1">DELETE</button>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="MANAGE_USER">
+                                <input type="hidden" name="userId" value="${user.id}">
+
+                                <c:if test="${user.block == true}">
+                                    <button type="submit" class="btn">ACTIVE</button>
+                                </c:if>
+                                <c:if test="${user.block == false}">
+                                    <button type="submit" class="btn">DEACTIVE</button>
+                                </c:if>
+                            </form>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="DELETE_USER">
+                                <button type="submit" name="userId" value="${user.id}" class="btn1">DELETE</button>
                             </form>
                         </div>
                     </td>
 
                 </tr>
             </c:forEach>
-
-
             </tbody>
         </table>
+
     </div>
 </div>
 

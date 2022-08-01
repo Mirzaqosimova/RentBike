@@ -13,4 +13,5 @@ public interface Validation {
     boolean validateCommand(String command);
 
     boolean validateId(String id);
+
 }

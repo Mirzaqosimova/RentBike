@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uz.epam.rentbikee.pool.ConnectionPool;
+import uz.epam.rentbikee.util.ParametrName;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -17,6 +18,10 @@ public class PreControllerFilter implements Filter {
     static Logger logger = LogManager.getLogger();
 
 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -25,8 +30,13 @@ public class PreControllerFilter implements Filter {
         HttpSession httpSession = httpServletRequest.getSession();
          //TODO check users
 
-        logger.log(Level.INFO,"PreControllerFilter");
+        logger.log(Level.INFO,request.getParameter(ParametrName.COMMAND));
         chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
 

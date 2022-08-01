@@ -19,7 +19,7 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-ConnectionPool.getInstance().destroyPool();
+        ConnectionPool.getInstance().destroyPool();
     }
 
 

@@ -16,8 +16,6 @@ import java.util.Optional;
 
 public class UserMapperImpl implements Mapper {
 
-    private static final RoleDaoImpl roleDao = RoleDaoImpl.getInstance();
-
 
     private static UserMapperImpl instance = new UserMapperImpl();
 

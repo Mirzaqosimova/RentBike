@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Latest compiled JavaScript -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/registc.css">
 <title>Title</title>
@@ -30,7 +31,7 @@
 
      <form action="${pageContext.request.contextPath}/controller" method="post">
                                <div class="form-outline mb-4">
-                               <input type="hidden" name="command" value="registration">
+                               <input type="hidden" name="command" value="SIGN_UP">
                                <label class="form-label" for="form3Example1cg" ><h5>Enter your full name</h5></label>
                                <input type="text" id="form3Example1cg" name="fullname" class="form-control form-control-lg" />
                                </div>
@@ -48,12 +49,7 @@
                                     <label class="form-label" for="form3Example4cg"><h5>Enter your password</h5></label>
                                     <input type="password" id="form3Example4cg" name="password" placeholder="Password must be at least 8 characters" class="form-control form-control-lg" />
                                 </div>
-
-
-
-
-
-                                <div class="d-flex justify-content-center">
+                                     <div class="d-flex justify-content-center">
                                     <button type="submit"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                                 </div>
