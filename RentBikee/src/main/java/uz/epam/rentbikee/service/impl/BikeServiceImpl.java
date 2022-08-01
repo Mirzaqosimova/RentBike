@@ -1,5 +1,9 @@
 package uz.epam.rentbikee.service.impl;
 
+import uz.epam.rentbikee.entity.Address;
+import uz.epam.rentbikee.entity.Bike;
+import uz.epam.rentbikee.entity.Price;
+import uz.epam.rentbikee.entity.type.BikeStatus;
 import uz.epam.rentbikee.service.BikeService;
 
 import javax.servlet.ServletException;
@@ -32,7 +36,7 @@ public class BikeServiceImpl implements BikeService {
         String brandName = request.getParameter("brandName");
         String description = request.getParameter("description");
         String size = request.getParameter("size");
-        String status = request.getParameter("categoryId");
+        String categoryId = request.getParameter("categoryId");
         String time = request.getParameter("time");
         String price = request.getParameter("price");
         String addressDesc = request.getParameter("addresDesc");
@@ -40,6 +44,28 @@ public class BikeServiceImpl implements BikeService {
         String addresStreet = request.getParameter("addresStreet");
         String[] detailId = request.getParameterValues("detailIds");
         String fileName = saveFile(request);
+//TODO VALIDATION FIND CATEGORY AND DETAILS
+        Address address = new Address();
+        address.setCity(addresCity);
+        address.setDescription(addressDesc);
+        address.setStreet(addresStreet);
+
+        Price priceObj = new Price();
+        priceObj.setPrice(Double.parseDouble(price));
+        priceObj.setMinut(Integer.parseInt(time));
+
+        Bike bike = Bike.builder()
+                .bikeStatus(BikeStatus.FREE)
+                .address(address)
+                .price(priceObj)
+                .description(description)
+                .brandName(brandName)
+                .isDelete(false)
+                .size(Integer.parseInt(size))
+                .fileName(fileName)
+                .build();
+
+
 
         return false;
     }

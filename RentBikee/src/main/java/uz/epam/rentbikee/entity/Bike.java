@@ -27,5 +27,7 @@ public class Bike extends AbstractEntity {
 
     private String fileName;
 
+    private CategoryBike bikeCategory;
+
 
 }
